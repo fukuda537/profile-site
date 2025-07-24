@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新規登録</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  <header>
+    <h1>新規登録</h1>
+    <nav>
+      <ul>
+        <li><a href="purofir.html">ホーム</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="shop.html">注文</a></li>
+        <li><a href="login.html">ログイン</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <form onsubmit="return register(event)">
+      <label for="name">お名前：</label>
+      <input type="text" id="name" required />
+
+      <label for="phone">電話番号：</label>
+      <input type="tel" id="phone" required />
+
+      <label for="home">住所：</label>
+      <input type="text" id="home" required />
+
+      <label for="email">メールアドレス：</label>
+      <input type="email" id="email" required />
+
+      <label for="password">パスワード：</label>
+      <input type="password" id="password" required />
+
+      <button type="submit">登録</button>
+    </form>
+    <p id="register-status"></p>
+  </main>
+  <script>
+    function register(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const home = document.getElementById('home').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const status = document.getElementById('register-status');
+
+      if (name && phone && home && email && password) {
+        // localStorageに保存
+        const userData = {
+          name: name,
+          phone: phone,
+          home: home,
+          password: password
+        };
+        localStorage.setItem(email, JSON.stringify(userData));
+        status.textContent = '登録が完了しました。ログインページに戻ってください。';
+        status.style.color = 'green';
+      } else {
+        status.textContent = '全ての項目を入力してください。';
+        status.style.color = 'red';
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>

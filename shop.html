@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>料金表</title>
+  <link rel="stylesheet" href="profile.css" />
+  <style>
+    .shop-item {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+    }
+
+    .shop-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      margin: 0.5rem 0;
+      gap: 1rem;
+    }
+
+    .option-name {
+      min-width: 120px;
+    }
+
+    .price {
+      font-weight: bold;
+      min-width: 100px;
+    }
+
+    .options input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+
+    .cart-button-right {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .cart-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .purchase-button {
+      margin-top: 1rem;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>料金表</h1>
+    <nav>
+      <ul>
+        <li><a href="purofir.html">ホーム</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="shop.html">注文</a></li>
+        <li><a href="login.html">ログイン</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>商品一覧</h2>
+
+    <!-- 個別外注オプション -->
+    <div class="shop-item">
+      <div class="shop-row">
+        <p>個別オプション</p>
+      </div>
+      <div class="options">
+        <div class="option-row">
+          <span class="option-name">作詞のみ</span>
+          <span class="price">¥5,000</span>
+          <input type="checkbox" class="option" value="5000" data-label="作詞外注" />
+        </div>
+        <div class="option-row">
+          <span class="option-name">作曲のみ</span>
+          <span class="price">¥5,000</span>
+          <input type="checkbox" class="option" value="5000" data-label="作曲外注" />
+        </div>
+        <div class="option-row">
+          <span class="option-name">編曲のみ</span>
+          <span class="price">¥10,000</span>
+          <input type="checkbox" class="option" value="10000" data-label="編曲外注" />
+        </div>
+        <div class="option-row">
+          <span class="option-name">ベース演奏</span>
+          <span class="price">¥8,000</span>
+          <input type="checkbox" class="option" value="8000" data-label="ベース外注" />
+        </div>
+      </div>
+      <div class="cart-button-right">
+        <button onclick="addCustomOrder()">カートに追加</button>
+      </div>
+    </div>
+
+    <!-- 楽曲制作オーダー -->
+    <div class="shop-item">
+      <div class="shop-row">
+        <p>楽曲制作（オーダー）</p>
+        <p>一人一人に合った楽曲を０から制作します。</p>
+        <div class="price">基本（作詞、作曲、編曲） ¥20,000</div>
+      </div>
+      <div class="options">
+        <p>オプション</p>
+        <div class="option-row">
+          <span class="option-name">Mix/Master外注</span>
+          <span class="price">¥10,000</span>
+          <input type="checkbox" class="option" value="5000" data-label="Mix／マスタリング" />
+        </div>
+        <div class="option-row">
+          <span class="option-name">ギター外注</span>
+          <span class="price">¥8,000</span>
+          <input type="checkbox" class="option" value="8000" data-label="ギター外注" />
+        </div>
+        <div class="option-row">
+          <span class="option-name">ドラム外注</span>
+          <span class="price">¥8,000</span>
+          <input type="checkbox" class="option" value="8000" data-label="ドラム外注" />
+        </div>
+        <div class="option-row">
+          <span class="option-name">キーボード外注</span>
+          <span class="price">¥8,000</span>
+          <input type="checkbox" class="option" value="8000" data-label="キーボード外注" />
+        </div>
+      </div>
+      <div class="cart-button-right">
+        <button onclick="addCustomOrder()">カートに追加</button>
+      </div>
+    </div>
+
+    <!-- 既存曲販売 -->
+    <div class="shop-item">
+      <div class="shop-row">
+        <p>既存曲（Sample）</p>
+        <p>既に完成された音源を権利料ごとご購入いただけます。</p>
+        <div class="price">¥15,000</div>
+        <button onclick="addToCart('既存曲（ライセンス付）', 15000)">カートに追加</button>
+      </div>
+      <p>音源視聴（まっすぐに君へ）:</p>
+      <audio controls>
+        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg" />
+        このブラウザでは音声の再生がサポートされていません。
+      </audio>
+
+      <p>音源視聴（音解）:</p>
+      <audio controls>
+        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg" />
+        このブラウザでは音声の再生がサポートされていません。
+      </audio>
+      <p>購入前にフルで楽曲を確認したい場合や、生楽器差し替えやMix外注などのオプションを付けたい場合には一度お問い合わせください。</p>
+    </div>
+
+    <!-- カート表示・購入 -->
+    <div class="cart-section">
+      <h3>カート内容</h3>
+      <ul id="cart-list"></ul>
+      <button class="purchase-button" onclick="purchase()">購入する</button>
+    </div>
+  </main>
+
+  <script>
+    const cart = [];
+    const isLoggedIn = false;
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCartDisplay();
+    }
+
+    function addCustomOrder() {
+      let basePrice = 0;
+      const options = document.querySelectorAll('.shop-item .option');
+      let optionTotal = 0;
+      let optionDetails = [];
+
+      options.forEach(opt => {
+        if (opt.checked) {
+          const price = parseInt(opt.value);
+          optionTotal += price;
+          optionDetails.push(opt.dataset.label);
+        }
+      });
+
+      if (optionDetails.length === 0) {
+        alert("1つ以上のオプションを選択してください。");
+        return;
+      }
+
+      const total = basePrice + optionTotal;
+      const name = `外注オプション：${optionDetails.join('＋')}`;
+      cart.push({ name, price: total });
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const list = document.getElementById("cart-list");
+      list.innerHTML = "";
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - ¥${item.price.toLocaleString()}`;
+        list.appendChild(li);
+      });
+    }
+
+    function purchase() {
+      if (!isLoggedIn) {
+        alert("購入にはログインが必要です。ログインページへ移動します。");
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (cart.length === 0) {
+        alert("カートが空です。");
+        return;
+      }
+
+      alert("購入が完了しました！");
+      cart.length = 0;
+      updateCartDisplay();
+    }
+  </script>
+</body>
+</html>

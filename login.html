@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ログイン</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  <header>
+    <h1>ログイン</h1>
+    <nav>
+      <ul>
+        <li><a href="purofir.html">ホーム</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="shop.html">注文</a></li>
+        <li><a href="login.html">ログイン</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <form onsubmit="return login(event)">
+      <label for="user">メールアドレス：</label>
+      <input type="email" id="user" required />
+      <label for="pass">パスワード：</label>
+      <input type="password" id="pass" required />
+      <button type="submit">ログイン</button>
+    </form>
+    <p id="login-status"></p>
+
+    <p style="margin-top: 1em;">
+      新規登録は <a href="register.html">こちら</a>
+    </p>
+  </main>
+  <script>
+    function login(event) {
+      event.preventDefault();
+      const user = document.getElementById('user').value;
+      const pass = document.getElementById('pass').value;
+      const status = document.getElementById('login-status');
+
+      const storedData = localStorage.getItem(user);
+      if (storedData) {
+        const userData = JSON.parse(storedData);
+        if (userData.password === pass) {
+          status.textContent = 'ログイン成功！ようこそ ' + userData.name + ' さん';
+          status.style.color = 'green';
+        } else {
+          status.textContent = 'パスワードが正しくありません。';
+          status.style.color = 'red';
+        }
+      } else {
+        status.textContent = '登録されたメールアドレスが見つかりません。';
+        status.style.color = 'red';
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
